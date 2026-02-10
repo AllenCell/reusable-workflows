@@ -1,0 +1,30 @@
+name: Setup NPM
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        required: true
+        default: '24' # >= 24 required for OIDC token support
+        type: string
+      npm-version:
+        required: true
+        default: '11.9.0' # >= v11.5.1 required for OIDC token support
+        type: string
+
+jobs:
+  setup:
+    name: Setup NPM
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Setup node
+        uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 #v6.2.0
+        with:
+          node-version: ${{ inputs.node-version }}
+          cache: "npm"
+      - name: Install npm at specific version
+        run: npm install -g npm@${{ inputs.npm-version }}
+      - name: Install dependencies
+        run: npm ci
