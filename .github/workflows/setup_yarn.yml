@@ -1,0 +1,30 @@
+name: Setup Yarn
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        required: false
+        default: '24'
+        type: string
+      yarn-version:
+        required: false
+        default: '1.22.22'
+        type: string
+
+jobs:
+  setup:
+    name: Setup Yarn
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node-version }}
+          cache: "yarn"
+      - name: Install yarn at specific version
+        run: npm install -g yarn@${{ inputs.yarn-version }}
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile #--frozen-lockfile ensures that the exact versions in yarn.lock are installed
