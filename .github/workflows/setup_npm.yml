@@ -4,11 +4,11 @@ on:
   workflow_call:
     inputs:
       node-version:
-        required: true
+        required: false
         default: '24' # >= 24 required for OIDC token support
         type: string
       npm-version:
-        required: true
+        required: false
         default: '11.9.0' # >= v11.5.1 required for OIDC token support
         type: string
 
