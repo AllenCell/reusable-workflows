@@ -5,14 +5,23 @@ on:
     inputs:
       node-version:
         required: false
-        default: "24.13.1" # >= 24 required for OIDC token support
+        description: >
+          The version of Node.js to install.
+          Must be >= v24 for OIDC token support.
+        default: "24.13.1"
         type: string
       npm-version:
         required: false
-        default: "11.9.0" # >= v11.5.1 required for OIDC token support
+        description: >
+          The version of npm to install.
+          Must be >= v11.5.1 for OIDC token support.
+        default: "11.9.0"
         type: string
-      use-cache: # For security, disable for publishing steps
+      use-cache:
         required: false
+        description: >
+          Enable or disable automatic caching.
+          For security reasons, caching must be set to 'false' for publishing steps.
         default: true
         type: boolean
 

@@ -5,14 +5,21 @@ on:
     inputs:
       node-version:
         required: false
+        description: >
+          The version of Node.js to install.
         default: "24.13.1"
         type: string
       yarn-version:
         required: false
         default: "1.22.22"
+        description: >
+          The version of Yarn to install.
         type: string
       use-cache: # For security, disable for publishing steps
         required: false
+        description: >
+          Enable or disable automatic caching.
+          For security reasons, caching must be set to 'false' for publishing steps.
         default: true
         type: boolean
 
