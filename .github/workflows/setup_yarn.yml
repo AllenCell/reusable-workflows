@@ -5,12 +5,23 @@ on:
     inputs:
       node-version:
         required: false
-        default: '24'
+        description: >
+          The version of Node.js to install.
+        default: "24.13.1"
         type: string
       yarn-version:
         required: false
-        default: '1.22.22'
+        default: "1.22.22"
+        description: >
+          The version of Yarn to install.
         type: string
+      use-cache: # For security, disable for publishing steps
+        required: false
+        description: >
+          Enable or disable automatic caching.
+          For security reasons, caching must be set to 'false' for publishing steps.
+        default: true
+        type: boolean
 
 jobs:
   setup:
@@ -18,12 +29,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd #v6.0.2
       - name: Setup node
         uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 #v6.2.0
         with:
           node-version: ${{ inputs.node-version }}
           cache: "yarn"
+          package-manager-cache: ${{inputs.use-cache}}
       - name: Install yarn at specific version
         run: npm install -g yarn@${{ inputs.yarn-version }}
       - name: Install dependencies
